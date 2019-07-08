@@ -5,11 +5,10 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -22,10 +21,8 @@ public class Response {
 
     @JsonProperty("next_change_id")
     private String nextChangeId;
-    @OneToMany(targetEntity=Stash.class, mappedBy="response", fetch=FetchType.LAZY)
+    @Transient
     private List<Stash> stashes = null;
-    
-    // private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     
     public String getNextChangeId() {
@@ -43,12 +40,4 @@ public class Response {
     public void setStashes(List<Stash> stashes) {
         this.stashes = stashes;
     }
-    
-    // public Map<String, Object> getAdditionalProperties() {
-    //     return this.additionalProperties;
-    // }
-    
-    // public void setAdditionalProperty(String name, Object value) {
-    //     this.additionalProperties.put(name, value);
-    // }
 }

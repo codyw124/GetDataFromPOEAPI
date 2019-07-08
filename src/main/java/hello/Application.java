@@ -35,6 +35,8 @@ public class Application {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
+			//TODO
+			//get the last change id
 			String nextChangeId = "";
 			int x = 1;
 			do{
@@ -42,19 +44,14 @@ public class Application {
 						"http://api.pathofexile.com/public-stash-tabs?id=" + nextChangeId, Response.class);
 
 				nextChangeId = r.getNextChangeId();
-				log.info( "next change id = " + nextChangeId);
 
 				responseRepository.save(r);
-
-				log.info( "response saved");
 
 				for(Stash s : r.getStashes()){
 
 					if(x == 112){
-						log.info("x");
+						log.info("starting to find items");
 					}
-					stashRepository.save(s);
-					log.info( "stash saved " + x);
 					x++;
 					for(Item i : s.getItems()){
 						itemRepository.save(i);

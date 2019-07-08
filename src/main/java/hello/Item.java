@@ -6,20 +6,10 @@ package hello;
 // import java.util.Map;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Item {
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stashId")
-    Stash stash;
 
     @Id
     private String id;
@@ -44,10 +34,8 @@ public class Item {
     // private List<Property> properties = null;
     // private List<Requirement> requirements = null;
     // private List<String> explicitMods = null;
-    // private List<String> flavourText = null;
     // private Category category;
     // private List<Object> socketedItems = null;
-    // private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public Boolean getVerified() {
         return verified;
@@ -97,13 +85,13 @@ public class Item {
         this.league = league;
     }
 
-    // public String getId() {
-    //     return id;
-    // }
+    public String getId() {
+        return id;
+    }
 
-    // public void setId(String id) {
-    //     this.id = id;
-    // }
+    public void setId(String id) {
+        this.id = id;
+    }
     
     // public List<Socket> getSockets() {
     //     return sockets;
@@ -169,14 +157,6 @@ public class Item {
     //     this.explicitMods = explicitMods;
     // }
     
-    // public List<String> getFlavourText() {
-    //     return flavourText;
-    // }
-    
-    // public void setFlavourText(List<String> flavourText) {
-    //     this.flavourText = flavourText;
-    // }
-    
     public Integer getFrameType() {
         return frameType;
     }
@@ -224,13 +204,4 @@ public class Item {
     // public void setSocketedItems(List<Object> socketedItems) {
     //     this.socketedItems = socketedItems;
     // }
-    
-    // public Map<String, Object> getAdditionalProperties() {
-    //     return this.additionalProperties;
-    // }
-    
-    // public void setAdditionalProperty(String name, Object value) {
-    //     this.additionalProperties.put(name, value);
-    // }
-
 }

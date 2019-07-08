@@ -1,25 +1,14 @@
 
 package hello;
 
-// import java.util.HashMap;
-// import java.util.Map;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Transient;
 
 @Entity
 public class Stash {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "responseId")
-    Response response;
 
     private String accountName;
     private String lastCharacterName;
@@ -28,10 +17,9 @@ public class Stash {
     private String id;
     private String stash;
     private String stashType;
-    @OneToMany(targetEntity=Item.class, mappedBy="stash", fetch=FetchType.LAZY)
+    @Transient
     private List<Item> items = null;
     private Boolean _public;
-    // private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public String getAccountName() {
         return accountName;
@@ -88,12 +76,4 @@ public class Stash {
     public void setPublic(Boolean _public) {
         this._public = _public;
     }
-
-    // public Map<String, Object> getAdditionalProperties() {
-    //     return this.additionalProperties;
-    // }
-
-    // public void setAdditionalProperty(String name, Object value) {
-    //     this.additionalProperties.put(name, value);
-    // }
 }
