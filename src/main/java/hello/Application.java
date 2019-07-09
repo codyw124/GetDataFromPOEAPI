@@ -38,7 +38,7 @@ public class Application {
 			//TODO
 			//get the last change id
 			String nextChangeId = "";
-			int x = 1;
+			int x = 0;
 			do{
 				Response r = restTemplate.getForObject(
 						"http://api.pathofexile.com/public-stash-tabs?id=" + nextChangeId, Response.class);
@@ -48,18 +48,66 @@ public class Application {
 				responseRepository.save(r);
 
 				for(Stash s : r.getStashes()){
-
-					if(x == 112){
-						log.info("starting to find items");
-					}
-					x++;
 					for(Item i : s.getItems()){
+
+						i.setAccountName(s.getAccountName());
+
+						int totalResistances = 0;
+
+						if(i.getExplicitMods() != null && !i.getTypeLine().toUpperCase().contains("ESSENCE")){
+							for(String property : i.getExplicitMods()){
+								totalResistances += getPropertyResistances(property);
+							}
+						}
+
+						i.setTotalResistances(totalResistances);
+
 						itemRepository.save(i);
-						log.info( "item saved");
+						log.info( "item " + x + " saved");
+
+						x++;
 					}
 				}
 
 			} while(!nextChangeId.equals(""));
 		};
+	}
+
+	private int getNumber(String stringWithNumber){
+
+		StringBuilder charsThatAreNumbers = new StringBuilder();
+
+		charsThatAreNumbers.append("0");
+
+		for(char x : stringWithNumber.toCharArray()){
+			
+			if(Character.isDigit(x)){
+				charsThatAreNumbers.append(x);
+			}
+		}
+		
+		return Integer.valueOf(charsThatAreNumbers.toString());
+	}
+
+	private int getPropertyResistances(String property){
+		int ret = 0;
+
+		property = property.toUpperCase();
+
+		if(property.endsWith("TO FIRE AND LIGHTNING RESISTANCES") ||
+		property.endsWith("TO FIRE AND COLD RESISTANCES") ||
+		property.endsWith("TO COLD AND LIGHTNING RESISTANCES")){
+			ret = getNumber(property) * 2;
+		}
+		else if(property.endsWith("TO ALL ELEMENTAL RESISTANCES")){
+			ret = getNumber(property) * 3;
+		}
+		else if(property.endsWith("TO FIRE RESISTANCE") ||
+		property.endsWith("TO COLD RESISTANCE") ||
+		property.endsWith("TO LIGHTNING RESISTANCE")){
+			ret = getNumber(property);
+		}
+
+		return ret;
 	}
 }

@@ -1,12 +1,11 @@
 
 package hello;
 
-// import java.util.HashMap;
-// import java.util.List;
-// import java.util.Map;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Item {
@@ -29,11 +28,40 @@ public class Item {
     private Integer y;
     private String inventoryId;
 
+    private String accountName;
+
+    @Transient
+    private List<String> explicitMods = null;
+
+    private Integer totalResistances;
+
+    public Integer getTotalResistances(){
+        return totalResistances;
+    }
+
+    public void setTotalResistances(Integer totalResistances){
+        this.totalResistances = totalResistances;
+    }
+
+    public String getAccountName(){
+        return accountName;
+    }
+
+    public void setAccountName(String accountName){
+        this.accountName = accountName;
+    }
+
+    public List<String> getExplicitMods() {
+        return explicitMods;
+    }
+    
+    public void setExplicitMods(List<String> explicitMods) {
+        this.explicitMods = explicitMods;
+    }
 
     // private List<Socket> sockets = null;
     // private List<Property> properties = null;
     // private List<Requirement> requirements = null;
-    // private List<String> explicitMods = null;
     // private Category category;
     // private List<Object> socketedItems = null;
 
@@ -149,13 +177,7 @@ public class Item {
     //     this.requirements = requirements;
     // }
     
-    // public List<String> getExplicitMods() {
-    //     return explicitMods;
-    // }
     
-    // public void setExplicitMods(List<String> explicitMods) {
-    //     this.explicitMods = explicitMods;
-    // }
     
     public Integer getFrameType() {
         return frameType;
