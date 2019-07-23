@@ -110,4 +110,12 @@ public class Application {
 
 		return ret;
 	}
+
+	int getPlayerLife(int level, int strength, int percentIncreased, int addedLife){
+		int health = (38 + (12 * level) + (strength / 2) + addedLife) * (1);
+	
+
+
+		return health;
+	}
 }
