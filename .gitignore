@@ -1,2 +1,10 @@
 
 *.class
+target/classes/application.properties
+target/classes/logback.xml
+target/maven-archiver/pom.properties
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+target/poeAPIReader-1.1.jar
+target/poeAPIReader-1.1.jar.original
+target/log.log
