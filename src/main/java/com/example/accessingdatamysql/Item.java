@@ -96,8 +96,8 @@ public class Item {
     @Column(length = 511)
     @JsonProperty("descrText")
     private String descrText;
-
-    //lists of strings what do i do with these?
+    
+    @Column(length = 511)
     @ElementCollection
     @JsonProperty("explicitMods")
     private List<String> explicitMods = new ArrayList<String>();
